@@ -87,11 +87,11 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "uk.ac.edina.curiousedinburgh"
+        applicationId "uk.ac.ed.cityscope"
         minSdkVersion 16
         targetSdkVersion 22
-        versionCode 3
-        versionName "2.0.1"
+        versionCode 1
+        versionName "0.0.1"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
