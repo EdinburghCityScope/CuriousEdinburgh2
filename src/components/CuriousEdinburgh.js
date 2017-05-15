@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, Linking } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import SplashScreen from 'react-native-splash-screen';
 
@@ -16,6 +16,7 @@ import TourPlaceList from 'components/TourPlaceList';
 import TourList from 'components/TourList';
 import About from 'components/About';
 
+import url from 'url';
 import Utils from 'utils';
 
 const styles = StyleSheet.create({
@@ -34,6 +35,25 @@ export default class CuriousEdinburgh extends Component {
         this.changeSelectedTour = this.changeSelectedTour.bind(this);
     }
     componentDidMount() {
+        Linking.getInitialURL().then((apiUrl) => {
+            if (apiUrl) {
+                du = decodeURIComponent(apiUrl);
+                r = url.parse(du);
+                var host = r.host;
+                var path = r.pathname;
+                var tour = Utils.getParameterByName('tour', du);
+                var protocol = Utils.getParameterByName('protocol', du);
+                console.log(host);
+                console.log(path);
+                console.log(tour);
+                console.log(protocol);
+
+            }
+        }).catch(
+            err => console.error('An error occurred', err)
+        );
+
+
         WordPress.getTours()
             .then((tours) => {
                 this.setState({ tours });
