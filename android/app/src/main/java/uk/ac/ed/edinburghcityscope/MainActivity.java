@@ -1,4 +1,4 @@
-package uk.ac.edina.curiousedinburgh;
+package uk.ac.ed.edinburghcityscope;
 
 import com.facebook.react.ReactActivity;
 import com.cboy.rn.splashscreen.SplashScreen;

@@ -1,4 +1,4 @@
-package uk.ac.edina.curiousedinburgh;
+package uk.ac.ed.edinburghcityscope;
 
 import android.app.Application;
 import android.util.Log;

@@ -7,11 +7,18 @@ import Utils from '../utils';
 import PromiseErrorHandler from '../models/PromiseErrorHandler';
 
 const Entities = require('html-entities').XmlEntities;
-/* global fetch:false*/
+
 export default class WordPress {
-    static getTours() {
+    static getTours(baseURL) {
+        let url;
+        if (baseURL === undefined) {
+            url = `${constants.URL}/${constants.CATEGORIES}`;
+        } else {
+            url = `${baseURL}/${constants.CATEGORIES}`;
+        }
+
         return new Promise((resolve, reject) => {
-            Fetch.get(constants.CATEGORIES).then((data) => {
+            Fetch.get(url).then((data) => {
                 if (Array.isArray(data)) {
                     const dataFiltered = data.filter(value => value.description === 'true');
                     const tours = dataFiltered.map(value =>
@@ -22,7 +29,7 @@ export default class WordPress {
                     resolve(tours);
                 } else {
                     reject(new PromiseErrorHandler({ statusText: 'An array is expected for the data retrieved',
-                        URL: constants.CATEGORIES }));
+                        URL: url }));
                 }
                 resolve(data);
             }, (onRejected) => {
@@ -30,10 +37,17 @@ export default class WordPress {
             });
         });
     }
-    static getTourPlaces(tour) {
+    static getTourPlaces(tour, baseURL) {
+        let url;
+        if (baseURL === undefined) {
+            url = `${constants.URL}/${constants.POSTS_BY_CATEGORY}`;
+        } else {
+            url = `${baseURL}/${constants.POSTS_BY_CATEGORY}`;
+        }
+
         // TODO: Validate tour is instanceof Tour
         return new Promise((resolve, reject) => {
-            Fetch.get(constants.POSTS_BY_CATEGORY + tour.id).then((data) => {
+            Fetch.get(url + tour.id).then((data) => {
                 if (Array.isArray(data)) {
                     const entities = new Entities();
                     const tourPlaces = data.map((value) => {
@@ -68,7 +82,7 @@ export default class WordPress {
                     // when stop are not string (e.g null if regex failed)
                     resolve(tourPlaces);
                 } else {
-                    reject(new PromiseErrorHandler({ statusText: 'An array is expected for the data retrieved', URL: constants.POSTS_BY_CATEGORY + tour.id }));
+                    reject(new PromiseErrorHandler({ statusText: 'An array is expected for the data retrieved', URL: url + tour.id }));
                 }
             }, (onRejected) => {
                 reject(onRejected);

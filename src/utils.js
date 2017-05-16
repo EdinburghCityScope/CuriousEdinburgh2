@@ -67,8 +67,12 @@ export default class Utils {
         return r;
     }
 
+    /*eslint-disable */
+    // TODO: rewrite in es6
     static getParameterByName(name, url) {
-        if (!url) url = window.location.href;
+        if (!url) {
+            url = window.location.href;
+        }
         name = name.replace(/[\[\]]/g, "\\$&");
         var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
         results = regex.exec(url);
@@ -76,5 +80,5 @@ export default class Utils {
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, " "));
     }
-
+    /*eslint-enable */
 }

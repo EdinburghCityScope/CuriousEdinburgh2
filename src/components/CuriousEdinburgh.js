@@ -37,31 +37,38 @@ export default class CuriousEdinburgh extends Component {
     componentDidMount() {
         Linking.getInitialURL().then((apiUrl) => {
             if (apiUrl) {
-                du = decodeURIComponent(apiUrl);
-                r = url.parse(du);
-                var host = r.host;
-                var path = r.pathname;
-                var tour = Utils.getParameterByName('tour', du);
-                var protocol = Utils.getParameterByName('protocol', du);
-                console.log(host);
-                console.log(path);
-                console.log(tour);
-                console.log(protocol);
+                const du = decodeURIComponent(apiUrl);
+                const r = url.parse(du);
+                const host = r.host;
+                // const path = r.pathname;
+                const tour = Utils.getParameterByName('tour', du);
+                const protocol = Utils.getParameterByName('protocol', du);
+                // console.log(host);
+                // console.log(path);
 
+                if (tour) {
+                    Preference.setTourId(tour);
+                }
+
+                // console.log(protocol);
+                if (protocol === 'secure') {
+                    this.baseUrl = `https://${host}`;
+                } else {
+                    this.baseUrl = `http://${host}`;
+                }
             }
+
+            WordPress.getTours(this.baseUrl)
+                .then((tours) => {
+                    this.setState({ tours });
+                    SplashScreen.hide();
+                }, (error) => {
+                    SplashScreen.hide();
+                    Alert.alert('WordPress tours', error.toString());
+                });
         }).catch(
-            err => console.error('An error occurred', err)
+            err => console.error('An error occurred', err),
         );
-
-
-        WordPress.getTours()
-            .then((tours) => {
-                this.setState({ tours });
-                SplashScreen.hide();
-            }, (error) => {
-                SplashScreen.hide();
-                Alert.alert('WordPress tours', error.toString());
-            });
     }
     componentWillUpdate(nextProps, nextState) {
         if (this.state.selectedTour !== nextState.selectedTour) {
@@ -87,7 +94,7 @@ export default class CuriousEdinburgh extends Component {
                     this.setState({ selectedTour: tour });
                 }
             } else {
-                WordPress.getTourPlaces(tour).then((tourPlaces) => {
+                WordPress.getTourPlaces(tour, this.baseUrl).then((tourPlaces) => {
                     const locations = tourPlaces.map(value => value.location);
                     const index = this.state.tours.findIndex(e => e.id === tourId);
                     MapBox.getDirections(locations)
