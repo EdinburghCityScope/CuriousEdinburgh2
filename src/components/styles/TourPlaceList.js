@@ -8,7 +8,7 @@ module.exports = StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
         padding: 4,
-        color: '#408ba4',
+        color: '#404142',
         backgroundColor: '#e6e6e6',
     },
     detail: {
@@ -23,14 +23,14 @@ module.exports = StyleSheet.create({
     number: {
         color: 'white',
         fontWeight: 'bold',
-        backgroundColor: '#71b3c1',
+        backgroundColor: '#4a9113',
         borderRadius: 50,
         width: 30,
         height: 30,
         textAlign: 'center',
         textAlignVertical: 'center',
         borderWidth: 2,
-        borderColor: '#459db4',
+        borderColor: '#404142',
     },
     image: {
         width: 100,

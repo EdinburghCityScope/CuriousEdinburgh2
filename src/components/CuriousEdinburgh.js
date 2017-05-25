@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
     body: {
         flex: 0.91,
     },
+    tabHighlight: {
+        backgroundColor: '#404142',
+    },
 });
 
 export default class CuriousEdinburgh extends Component {
@@ -40,17 +43,13 @@ export default class CuriousEdinburgh extends Component {
                 const du = decodeURIComponent(apiUrl);
                 const r = url.parse(du);
                 const host = r.host;
-                // const path = r.pathname;
                 const tour = Utils.getParameterByName('tour', du);
                 const protocol = Utils.getParameterByName('protocol', du);
-                // console.log(host);
-                // console.log(path);
 
                 if (tour) {
                     Preference.setTourId(tour);
                 }
 
-                // console.log(protocol);
                 if (protocol === 'secure') {
                     this.baseUrl = `https://${host}`;
                 } else {
@@ -136,6 +135,9 @@ export default class CuriousEdinburgh extends Component {
             <ScrollableTabView
               tabBarPosition="bottom"
               style={styles.body}
+              tabBarUnderlineStyle={styles.tabHighlight}
+              tabBarActiveTextColor='#404142'
+              tabBarInactiveTextColor='#4a9113'
               ref={(tabView) => { this.tabView = tabView; }}
             >
 

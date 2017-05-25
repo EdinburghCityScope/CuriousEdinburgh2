@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native';
 module.exports = StyleSheet.create({
     header: {
         alignItems: 'center',
-        backgroundColor: '#098caa',
+        backgroundColor: '#4a9113',
     },
     banner: {
         height: 140,
-        width: 600,
+        width: 800,
     },
     body: {
         padding: 10,

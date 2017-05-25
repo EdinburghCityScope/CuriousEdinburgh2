@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#1d8daa',
+        backgroundColor: '#80b11d',
     },
     button: {
         top: 5,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const imageSource = require('assets/logo.jpg');
+const imageSource = require('assets/logo.png');
 
 export default class Header extends Component {
     constructor(props) {

@@ -4,7 +4,7 @@ module.exports = StyleSheet.create({
     header: {
         flexDirection: 'row',
         height: 60,
-        backgroundColor: '#268da8',
+        backgroundColor: '#4a9113',
         justifyContent: 'space-between',
         alignItems: 'center',
     },
@@ -14,7 +14,7 @@ module.exports = StyleSheet.create({
         padding: 5,
     },
     close: {
-        backgroundColor: '#268da8',
+        backgroundColor: '#4a9113',
         color: 'white',
     },
     title: {
@@ -39,7 +39,7 @@ module.exports = StyleSheet.create({
         borderColor: '#efeff4',
     },
     address: {
-        color: '#679fad',
+        color: 'black',
         fontSize: 20,
         fontWeight: 'bold',
         padding: 10,

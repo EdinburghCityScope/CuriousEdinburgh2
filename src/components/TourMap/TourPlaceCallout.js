@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     },
     calloutHeader: {
         width: 200,
-        backgroundColor: '#1d8daa',
+        backgroundColor: '#4a9113',
         borderTopRightRadius: 5,
         borderTopLeftRadius: 5,
         padding: 5,
