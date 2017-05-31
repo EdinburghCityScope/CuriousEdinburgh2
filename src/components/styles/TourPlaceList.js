@@ -19,6 +19,7 @@ module.exports = StyleSheet.create({
     },
     numberContainer: {
         paddingRight: 5,
+        paddingBottom: 5,
     },
     number: {
         color: 'white',
@@ -37,8 +38,10 @@ module.exports = StyleSheet.create({
         height: 100,
         borderRadius: 10,
     },
-    text: {
+    textContainer: {
         flex: 1,
+    },
+    text: {
         padding: 10,
         fontSize: 18,
     },

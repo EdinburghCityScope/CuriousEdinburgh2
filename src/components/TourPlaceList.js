@@ -53,19 +53,24 @@ export default class TourPlaceList extends Component {
                   >
                     <View style={styles.place}>
                       <Text style={styles.title}>{rowData.title}</Text>
-                      <View style={styles.detail}>
-                        <View style={styles.numberContainer}>
-                          <Text style={styles.number}>{rowData.stop}</Text>
+                        <View style={styles.detail}>
+                        <View>
+                          <View style={styles.numberContainer}>
+                            <Text style={styles.number}>{rowData.stop}</Text>
+                          </View>
+
+                          <Image
+                            style={styles.image}
+                            source={{ uri: rowData.images[0] }}
+                          />
                         </View>
-                        <Image
-                          style={styles.image}
-                          source={{ uri: rowData.images[0] }}
-                        />
-                        <Text
-                          style={styles.text}
-                        >
-                          {rowData.getShortDescription()}
-                        </Text>
+                        <View style={styles.textContainer}>
+                          <Text
+                            style={styles.text}
+                          >
+                            {rowData.getShortDescription()}
+                          </Text>
+                        </View>
                       </View>
                     </View>
                   </TouchableHighlight>
