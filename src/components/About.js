@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Image,
+         Linking,
          ListView,
          ScrollView,
          Text,
@@ -70,42 +71,15 @@ export default class About extends Component {
               />
             </View>
             <View style={styles.body}>
-              <Text style={styles.title}>What is Curious Edinburgh?</Text>
-              <Text style={styles.text}>Are you interested in the fascinating and important scientific, medical and technological heritage of the city of Edinburgh? The tours on our new website and its accompanying app will be your guide to the history of ideas in the Athens of the North. We have sought out stories from the history of Edinburgh which will inspire, inform and amuse both visitors and residents of the city. We currently have tours available on the general history of science, the history of geology and the history of physics. More tours are currently in development.{'\n\n'}
-                You can visit the places in our tours in an order that suits you, although the numbering suggests an order that would be convenient for a visitor to the city on foot or using public transport. We estimate that to see all the places on each of the tours should take approximately three hours, but you may choose to visit only those which are of special interest to you. You can choose from the lists of places to create your own itinerary based on your interests and the amount of time you have available.{'\n\n'}
-                The map on the tour page will help you find the places and orientate yourself in the city. Most of the stops on our tour are within walking distance from Waverley station and the city centre, although for a some of the more distant ones some visitors may prefer to use Edinburgh’s excellent bus services. If you do decide to take the bus, you might find Lothian Transport’s route planner helpful.{'\n\n'}
-             These tours are currently available on the website and on our app:
+              <Text style={styles.text}><Text style={{color: '#a7cb43'}}
+            onPress={() => Linking.openURL('http://www.edinburghcityscope.org/')}>
+                Edinburgh Cityscope
+            </Text> turning the city of Edinburgh into a pervasive learning environment. Bit-by-bit we are creating tools that you can use to explore the city and to share what you find. This version of the Edinburgh Cityscope Tour app has been customised to guide you around points of interest chosen by someone using the Edinburgh Cityscope Tour Blog. The author of the blog chose what s/he wanted to show in the tour and this content was loaded into the app when you clicked the link you received by email or via social media on your phone. You only need to click this link once to customise the app. Thereafter, the app can be opened in the normal way and will automatically update with any new points of interest added by the author. If at any time you are sent a new link by someone, this will link the app to a different tour. The app can only show you one tour at a time, so if you want to revert to previous content just click on the relevant link. {'\n\n'}
+              Edinburgh Cityscope is a project of the University of Edinburgh{'\n\n'}
+              Credits:
               </Text>
             </View>
 
-            <View syle={styles.tours}>
-              <ListView
-                dataSource={
-                    this.state.dataSource
-                }
-                renderRow={
-                  rowData =>
-                    <TouchableHighlight
-                      onPress={
-                          () => this._onPressTour(rowData)
-                      }
-                    >
-                      <View style={styles.tour}>
-                        <Image
-                          style={styles.image}
-                          source={{
-                              uri: rowData.image,
-                          }}
-                        />
-                        <View style={styles.tourDetails}>
-                          <Text style={styles.tourTitle}>{rowData.title}</Text>
-                          <Text style={styles.text}>{rowData.description}</Text>
-                        </View>
-                      </View>
-                    </TouchableHighlight>
-                }
-              />
-            </View>
           </ScrollView>
         );
         /* eslint-enable */
