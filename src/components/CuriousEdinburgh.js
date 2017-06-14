@@ -34,50 +34,65 @@ const styles = StyleSheet.create({
 export default class CuriousEdinburgh extends Component {
     constructor() {
         super();
+        this.firstCallToFetch = true;   //Used as Flag to hide the SplashScreen JUST once, i.e. at the beginning for the first call to _fetch
+        this.baseUrl;   //This attribute is set ONLY when a successful URL is passed to the app
         this.state = { tours: [], selectedTour: null };
         this.changeSelectedTour = this.changeSelectedTour.bind(this);
+        this._handleDeepLink = this._handleDeepLink.bind(this);
+    }
+    _fetch(){
+        WordPress.getTours(this.baseUrl)
+            .then((tours) => {
+                this.setState({ tours, selectedTour: null });
+                if(this.firstCallToFetch){
+                    this.firstCallToFetch = false;
+                    SplashScreen.hide();
+                }
+            }, (error) => {
+                if(this.firstCallToFetch){
+                    this.firstCallToFetch = false;
+                    SplashScreen.hide();
+                }
+                Alert.alert('WordPress tours', error.toString());
+        });
+    }
+    _handleDeepLink(event){
+        const url_param = event.url;
+        if (url_param) {
+            const du = decodeURIComponent(url_param);
+            const r = url.parse(du);
+            const host = r.host;
+            const tour = Utils.getParameterByName('tour', du);
+            const protocol = Utils.getParameterByName('protocol', du);
+            if (tour) {
+                Preference.setTourId(tour);
+            }
+            if (protocol === 'secure') {
+                this.baseUrl = `https://${host}`;
+            } else {
+                this.baseUrl = `http://${host}`;
+            }
+        }
+        this._fetch();
     }
     componentDidMount() {
-        Linking.getInitialURL().then((apiUrl) => {
-            if (apiUrl) {
-                const du = decodeURIComponent(apiUrl);
-                const r = url.parse(du);
-                const host = r.host;
-                const tour = Utils.getParameterByName('tour', du);
-                const protocol = Utils.getParameterByName('protocol', du);
-
-                if (tour) {
-                    Preference.setTourId(tour);
-                }
-
-                if (protocol === 'secure') {
-                    this.baseUrl = `https://${host}`;
-                } else {
-                    this.baseUrl = `http://${host}`;
-                }
-            }
-
-            WordPress.getTours(this.baseUrl)
-                .then((tours) => {
-                    this.setState({ tours });
-                    SplashScreen.hide();
-                }, (error) => {
-                    SplashScreen.hide();
-                    Alert.alert('WordPress tours', error.toString());
-                });
-        }).catch(
-            err => console.error('An error occurred', err),
-        );
+        this._fetch();
+        Linking.addEventListener('url', this._handleDeepLink);
     }
     componentWillUpdate(nextProps, nextState) {
         if (this.state.selectedTour !== nextState.selectedTour) {
-            Preference.setTourId(nextState.selectedTour.id);
+            if(nextState.selectedTour !== null){
+                Preference.setTourId(nextState.selectedTour.id);
+            }
         }
     }
     componentDidUpdate() {
         if (this.state.selectedTour === null) {
             Preference.getTourId().then(tourId => this.changeSelectedTour(tourId));
         }
+    }
+    componentWillUnmount() {
+        Linking.removeEventListener('url', this._handleDeepLink);
     }
     changeSelectedTour(tourId) {
         const tour = this.state.tours.find(e => e.id === tourId);
