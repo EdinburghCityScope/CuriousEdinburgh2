@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
 });
 
-const imageSource = require('assets/logo.png');
+const imageSource = require('../assets/logo.png');
 
 export default class Header extends Component {
     constructor(props) {

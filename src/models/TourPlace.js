@@ -1,4 +1,4 @@
-import Location from 'models/Location';
+import Location from './Location';
 
 export default class TourPlace {
     constructor({ id = '0', title = '', description = '',

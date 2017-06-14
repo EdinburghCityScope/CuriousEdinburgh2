@@ -4,20 +4,20 @@ import ScrollableTabView from 'react-native-scrollable-tab-view';
 import SplashScreen from 'react-native-splash-screen';
 
 // Services
-import WordPress from 'services/WordPress';
-import MapBox from 'services/MapBox';
+import WordPress from '../services/WordPress';
+import MapBox from '../services/MapBox';
 // Models
-import Tour from 'models/Tour';
-import Preference from 'models/Preference';
+import Tour from '../models/Tour';
+import Preference from '../models/Preference';
 // Components
-import Header from 'components/Header';
-import TourMap from 'components/TourMap/index';
-import TourPlaceList from 'components/TourPlaceList';
-import TourList from 'components/TourList';
-import About from 'components/About';
+import Header from './Header';
+import TourMap from './TourMap/index';
+import TourPlaceList from './TourPlaceList';
+import TourList from './TourList';
+import About from './About';
 
 import url from 'url';
-import Utils from 'utils';
+import Utils from '../utils';
 
 const styles = StyleSheet.create({
     container: {

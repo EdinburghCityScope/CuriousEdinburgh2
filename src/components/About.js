@@ -6,9 +6,9 @@ import { Image,
          Text,
          TouchableHighlight,
          View } from 'react-native';
-import * as styles from 'components/styles/About';
+import * as styles from './styles/About';
 
-const banner = require('assets/cityscope-banner.jpg');
+const banner = require('../assets/cityscope-banner.jpg');
 
 export default class About extends Component {
 
