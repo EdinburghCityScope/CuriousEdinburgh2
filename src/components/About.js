@@ -76,7 +76,12 @@ export default class About extends Component {
                 Edinburgh Cityscope
             </Text> turning the city of Edinburgh into a pervasive learning environment. Bit-by-bit we are creating tools that you can use to explore the city and to share what you find. This version of the Edinburgh Cityscope Tour app has been customised to guide you around points of interest chosen by someone using the Edinburgh Cityscope Tour Blog. The author of the blog chose what s/he wanted to show in the tour and this content was loaded into the app when you clicked the link you received by email or via social media on your phone. You only need to click this link once to customise the app. Thereafter, the app can be opened in the normal way and will automatically update with any new points of interest added by the author. If at any time you are sent a new link by someone, this will link the app to a different tour. The app can only show you one tour at a time, so if you want to revert to previous content just click on the relevant link. {'\n\n'}
               Edinburgh Cityscope is a project of the University of Edinburgh{'\n\n'}
-              Credits:
+            <Text style={styles.title}>
+              Credits:{'\n\n'}
+            </Text>
+            Jonathan Silvertown{'\n\n'}
+            Ben Butchart{'\n\n'}
+            Richard Good{'\n\n'}
               </Text>
             </View>
 
