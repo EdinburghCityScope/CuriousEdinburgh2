@@ -76,7 +76,9 @@ export default class TourRecord extends Component {
             style={styles.page}
             transparent={false}
             visible={this.state.visible}
-            onRequestClose={() => { }}
+            onRequestClose={() => {
+                this.close();
+            }}
           >
             <ImageViewer
               ref={(c) => { this.modal = c; }}

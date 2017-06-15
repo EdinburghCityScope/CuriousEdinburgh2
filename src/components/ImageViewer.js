@@ -29,7 +29,9 @@ export default class ImageViewer extends Component {
         return (
           <Modal
             visible={this.state.visible}
-            onRequestClose={() => { }}
+            onRequestClose={() => {
+                this.hide();
+            }}
           >
             <PhotoView
               source={{ uri: this.state.image }}
