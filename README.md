@@ -28,3 +28,9 @@ npm run react-native run-android
 ```
 npm run react-native run-ios
 ```
+
+#### IOS Troubleshooting
+
+When building the app, you might experience the following error: 'Code signing fails with error 'resource fork, Finder information, or similar detritus not allowed' if you add or modify any asset (e.g. images). This is a security hardening change introduced with iOS 10. Please, follow the steps provided at [https://developer.apple.com/library/content/qa/qa1940/_index.html](https://developer.apple.com/library/content/qa/qa1940/_index.html)
+
+
