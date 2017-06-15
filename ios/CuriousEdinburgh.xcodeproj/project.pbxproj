@@ -1051,7 +1051,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.edina.crowdsurvey.Curious-Edinburgh";
+				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.edina.tourappcityscope;
 				PRODUCT_NAME = CuriousEdinburgh;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1075,7 +1075,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "uk.ac.edina.crowdsurvey.Curious-Edinburgh";
+				PRODUCT_BUNDLE_IDENTIFIER = uk.ac.edina.tourappcityscope;
 				PRODUCT_NAME = CuriousEdinburgh;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
