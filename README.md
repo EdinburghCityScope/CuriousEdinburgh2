@@ -38,7 +38,7 @@ When building the app, you might experience the following error: 'Code signing f
 This app relies on WordPress to display tour and Tour stops. If you have the adequated plugin that handles the extra metadata that this app requires, you can change the default API by typing your own URL on the device browser:
 
 ```
-curious-edinburgh://REPLACE_WITH_YOUR_DOMAIN/wp-json/wp/v2/?tour=DEFAULT_TOUR_ID&protocol='http|https'
+curious-edinburgh://REPLACE_WITH_YOUR_DOMAIN/wp-json/wp/v2/?tour=DEFAULT_TOUR_ID&protocol='secure'
 ```
-e.g. (curious-edinburgh://curiousedinburgh.org/wp-json/wp/v2/?tour=4&protocol='http')
+e.g. (curious-edinburgh://curiousedinburgh.org/wp-json/wp/v2/?tour=4). If the WordPress site is under https, please include the param protocol='secure'.
 
