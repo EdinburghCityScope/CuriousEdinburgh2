@@ -43,6 +43,7 @@ export default class CuriousEdinburgh extends Component {
                 const du = decodeURIComponent(apiUrl);
                 const r = url.parse(du);
                 const host = r.host;
+                const path = r.pathname;
                 const tour = Utils.getParameterByName('tour', du);
                 const protocol = Utils.getParameterByName('protocol', du);
 
@@ -51,9 +52,9 @@ export default class CuriousEdinburgh extends Component {
                 }
 
                 if (protocol === 'secure') {
-                    this.baseUrl = `https://${host}`;
+                    this.baseUrl = `https://${host}${path}`;
                 } else {
-                    this.baseUrl = `http://${host}`;
+                    this.baseUrl = `http://${host}${path}`;
                 }
             }
 
