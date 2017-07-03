@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, StyleSheet, Alert, Linking } from 'react-native';
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import SplashScreen from 'react-native-splash-screen';
+import url from 'url';
 
 // Services
 import WordPress from '../services/WordPress';
@@ -15,8 +16,6 @@ import TourMap from './TourMap/index';
 import TourPlaceList from './TourPlaceList';
 import TourList from './TourList';
 import About from './About';
-
-import url from 'url';
 import Utils from '../utils';
 
 const styles = StyleSheet.create({
@@ -34,46 +33,11 @@ const styles = StyleSheet.create({
 export default class CuriousEdinburgh extends Component {
     constructor() {
         super();
-        this.firstCallToFetch = true;   //Used as Flag to hide the SplashScreen JUST once, i.e. at the beginning for the first call to _fetch
-        this.baseUrl;   //This attribute is set ONLY when a successful URL is passed to the app
+        this.firstCallToFetch = true;   // Used as Flag to hide the SplashScreen JUST once
+        // , i.e. at the beginning for the first call to _fetch
         this.state = { tours: [], selectedTour: null };
         this.changeSelectedTour = this.changeSelectedTour.bind(this);
         this._handleDeepLink = this._handleDeepLink.bind(this);
-    }
-    _fetch(){
-        WordPress.getTours(this.baseUrl)
-            .then((tours) => {
-                this.setState({ tours, selectedTour: null });
-                if(this.firstCallToFetch){
-                    this.firstCallToFetch = false;
-                    SplashScreen.hide();
-                }
-            }, (error) => {
-                if(this.firstCallToFetch){
-                    this.firstCallToFetch = false;
-                    SplashScreen.hide();
-                }
-                Alert.alert('WordPress tours', error.toString());
-        });
-    }
-    _handleDeepLink(event){
-        const url_param = event.url;
-        if (url_param) {
-            const du = decodeURIComponent(url_param);
-            const r = url.parse(du);
-            const host = r.host;
-            const tour = Utils.getParameterByName('tour', du);
-            const protocol = Utils.getParameterByName('protocol', du);
-            if (tour) {
-                Preference.setTourId(tour);
-            }
-            if (protocol === 'secure') {
-                this.baseUrl = `https://${host}`;
-            } else {
-                this.baseUrl = `http://${host}`;
-            }
-        }
-        this._fetch();
     }
     componentDidMount() {
         this._fetch();
@@ -81,7 +45,7 @@ export default class CuriousEdinburgh extends Component {
     }
     componentWillUpdate(nextProps, nextState) {
         if (this.state.selectedTour !== nextState.selectedTour) {
-            if(nextState.selectedTour !== null){
+            if (nextState.selectedTour !== null) {
                 Preference.setTourId(nextState.selectedTour.id);
             }
         }
@@ -93,6 +57,43 @@ export default class CuriousEdinburgh extends Component {
     }
     componentWillUnmount() {
         Linking.removeEventListener('url', this._handleDeepLink);
+    }
+    _handleDeepLink(event) {
+        const urlParam = event.url;
+        if (urlParam) {
+            const du = decodeURIComponent(urlParam);
+            const r = url.parse(du);
+            const host = r.host;
+            const path = r.pathname;
+            const tour = Utils.getParameterByName('tour', du);
+            const protocol = Utils.getParameterByName('protocol', du);
+            if (tour) {
+                Preference.setTourId(tour);
+            }
+            if (protocol === 'secure') {
+                this.baseUrl = `https://${host}${path}`;
+            } else {
+                this.baseUrl = `http://${host}${path}`;
+            }
+        }
+        this._fetch();
+    }
+    _fetch() {
+        console.log('baseUrl: %o', this.baseUrl);
+        WordPress.getTours(this.baseUrl)
+            .then((tours) => {
+                this.setState({ tours, selectedTour: null });
+                if (this.firstCallToFetch) {
+                    this.firstCallToFetch = false;
+                    SplashScreen.hide();
+                }
+            }, (error) => {
+                if (this.firstCallToFetch) {
+                    this.firstCallToFetch = false;
+                    SplashScreen.hide();
+                }
+                Alert.alert('WordPress tours', error.toString());
+            });
     }
     changeSelectedTour(tourId) {
         const tour = this.state.tours.find(e => e.id === tourId);
@@ -151,8 +152,8 @@ export default class CuriousEdinburgh extends Component {
               tabBarPosition="bottom"
               style={styles.body}
               tabBarUnderlineStyle={styles.tabHighlight}
-              tabBarActiveTextColor='#404142'
-              tabBarInactiveTextColor='#4a9113'
+              tabBarActiveTextColor="#404142"
+              tabBarInactiveTextColor="#4a9113"
               ref={(tabView) => { this.tabView = tabView; }}
             >
 
